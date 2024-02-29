@@ -21,7 +21,7 @@ async function grabData() {
   console.log(`Grabbed first set of status data at ${rawStatusData.timestamp}`);
 
   // make middleman request every checkInterval minutes to limit requests to helldivers API
-  let checkInterval = 0.2; // in minutes
+  let checkInterval = 10; // in minutes
   setInterval(async () => {
     rawInfoData = await middleman.get(infoUrl);
     console.log(`Grabbed new info data at ${rawInfoData.timestamp}`);
