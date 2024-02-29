@@ -4,4 +4,30 @@ This is a for-fun project with the ultimate goal of a simple web app that scrape
 
 ## Running the server
 
-1. build!
+Webpack build does not work as of now.
+
+To run the server, do:
+
+```
+node src/index.js
+```
+
+Or, to capture logs:
+
+```
+node src/index.js > serverlogs.txt
+```
+
+## Endpoints
+
+1. `/rawinfo` returns the entire info json, raw
+2. `/rawstatus` returns the entire status json, raw
+
+Base URL: `localhost:13131`
+
+## Example
+
+```bash
+curl localhost:13131/rawinfo
+curl localhost:13131/rawstatus
+```
