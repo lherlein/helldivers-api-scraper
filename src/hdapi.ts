@@ -1,4 +1,4 @@
-{
+export const apiInfo = {
     "base": "https://api.live.prod.thehelldiversgame.com/api/WarSeason",
     "seasons": {
         "current": "/801",
@@ -9,4 +9,4 @@
         "info": "/warinfo",
         "status": "/status"
     }
-}
+};

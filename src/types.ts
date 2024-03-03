@@ -1,3 +1,8 @@
+export type RequestData = {
+    timestamp: string,
+    request: any
+};
+
 export type MiddlemanGetResponse = {
     timestamp: string,
     status: number,

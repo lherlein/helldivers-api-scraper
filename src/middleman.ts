@@ -1,7 +1,7 @@
 import fetch, { Response } from "node-fetch";
 import { MiddlemanGetResponse, RawInfo, RawStatus } from "./types";
 
-async function get(url: string): Promise<MiddlemanGetResponse {
+export async function hdGet(url: string): Promise<MiddlemanGetResponse> {
     // request options
     const options = {
         method: "GET",
@@ -32,4 +32,3 @@ async function get(url: string): Promise<MiddlemanGetResponse {
     }
 }
 
-module.exports = { get };

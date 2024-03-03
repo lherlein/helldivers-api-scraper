@@ -1,31 +1,39 @@
-const middleman = require("./middleman");
-const apiInfo = require("./hdapi.json");
-const baseUrl = apiInfo.base;
+import { hdGet } from "./middleman";
+import { apiInfo } from "./hdapi";
+import {
+  MiddlemanGetResponse, 
+  RawInfo,
+  RawStatus,
+  RequestData
+} from "./types";
 
-const season = apiInfo.seasons.current;
+const baseUrl: string = apiInfo.base;
+
+const season: string = apiInfo.seasons.current;
 const endpoints = apiInfo.endpoints;
-const infoUrl = `${baseUrl}${season}${endpoints.info}`
-const statusUrl = `${baseUrl}${season}${endpoints.status}`
+const infoUrl: string = `${baseUrl}${season}${endpoints.info}`
+const statusUrl: string = `${baseUrl}${season}${endpoints.status}`
 
-const express = require('express');
+import express from 'express';
+
 const app = express();
-const port = 13131;
+const port: number = 13131;
 
-let rawInfoData;
-let rawStatusData;
+let rawInfoData: MiddlemanGetResponse;
+let rawStatusData: MiddlemanGetResponse;
 
 async function grabData() {  
-  rawInfoData = await middleman.get(infoUrl);
+  rawInfoData = await hdGet(infoUrl);
   console.log(`Grabbed first set of info data at ${rawInfoData.timestamp}`);
-  rawStatusData = await middleman.get(statusUrl);
+  rawStatusData = await hdGet(statusUrl);
   console.log(`Grabbed first set of status data at ${rawStatusData.timestamp}`);
 
   // make middleman request every checkInterval minutes to limit requests to helldivers API
   let checkInterval = 10; // in minutes
   setInterval(async () => {
-    rawInfoData = await middleman.get(infoUrl);
+    rawInfoData = await hdGet(infoUrl);
     console.log(`Grabbed new info data at ${rawInfoData.timestamp}`);
-    rawStatusData = await middleman.get(statusUrl);
+    rawStatusData = await hdGet(statusUrl);
     console.log(`Grabbed new status data at ${rawStatusData.timestamp}`);
   }, checkInterval*60*1000);
 }
@@ -34,7 +42,7 @@ function server() {
   // Define a basic endpoints
   app.get('/rawinfo', async (req, res) => {
     // log request with req info and time
-    const reqData = {
+    const reqData: RequestData = {
       "timestamp": new Date().toISOString(),
       "request": req
     };
@@ -46,7 +54,7 @@ function server() {
   });
 
   app.get('/rawstatus', async (req, res) => {
-    const reqData = {
+    const reqData: RequestData = {
       "timestamp": new Date().toISOString(),
       "request": req
     };
