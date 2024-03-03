@@ -1,5 +1,5 @@
 const middleman = require("./middleman");
-const apiInfo = require("./api.json");
+const apiInfo = require("./hdapi.json");
 const baseUrl = apiInfo.base;
 
 const season = apiInfo.seasons.current;
@@ -33,6 +33,12 @@ async function grabData() {
 function server() {  
   // Define a basic endpoints
   app.get('/rawinfo', async (req, res) => {
+    // log request with req info and time
+    const reqData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`Request for rawinfo at ${reqData.timestamp} from ${reqData.request.ip}`);
     // Set proper content-type header for JSON
     res.setHeader('Content-Type', 'application/json');
     // Return a JSON object
@@ -40,6 +46,11 @@ function server() {
   });
 
   app.get('/rawstatus', async (req, res) => {
+    const reqData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`Request for rawinfo at ${reqData.timestamp} from ${reqData.request.ip}`);
     // Set proper content-type header for JSON
     res.setHeader('Content-Type', 'application/json');
     // Return a JSON object
@@ -52,5 +63,9 @@ function server() {
   });
 }
 
-grabData();
-server();
+async function start() {
+  await grabData();
+  server();
+}
+
+start();
