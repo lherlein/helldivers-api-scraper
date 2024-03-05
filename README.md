@@ -14,7 +14,7 @@ This API provides/will provide certain features and cover different use cases:
 
 ## Running the server
 
-Typescript is required to run the server. (BROKEN)
+Typescript is required to run the server.
 
 To run the server, you must first build the code:
 
