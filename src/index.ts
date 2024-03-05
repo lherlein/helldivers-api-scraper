@@ -37,7 +37,6 @@ const appEndpoints = {
     warId: `${statusbase}/warId`,
     time: `${statusbase}/time`,
     impactMultiplier: `${statusbase}/impactMultiplier`,
-    storyBeatId32: `${statusbase}/storyBeatId32`,
     planetStatus: `${statusbase}/planetStatus`,
     planetAttacks: `${statusbase}/planetAttacks`,
     campaigns: `${statusbase}/campaigns`,
@@ -46,8 +45,7 @@ const appEndpoints = {
     planetEvents: `${statusbase}/planetEvents`,
     planetActiveEffects: `${statusbase}/planetActiveEffects`,
     activeElectionPolicyEffects: `${statusbase}/activeElectionPolicyEffects`,
-    globalEvents: `${statusbase}/globalEvents`,
-    superEarthWarResults: `${statusbase}/superEarthWarResults`
+    globalEvents: `${statusbase}/globalEvents`
   }
 };
 
@@ -135,6 +133,114 @@ function server() {
     };
     console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
     res.json(rawInfoData.homeWorlds);
+  });
+
+  app.get(appEndpoints.status.warId, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.warId);
+  });
+
+  app.get(appEndpoints.status.time, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.time);
+  });
+
+  app.get(appEndpoints.status.impactMultiplier, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.impactMultiplier);
+  });
+
+  app.get(appEndpoints.status.planetStatus, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.planetStatus);
+  });
+
+  app.get(appEndpoints.status.planetAttacks, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.planetAttacks);
+  });
+
+  app.get(appEndpoints.status.campaigns, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.campaigns);
+  });
+
+  app.get(appEndpoints.status.communityTargets, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.communityTargets);
+  });
+
+  app.get(appEndpoints.status.jointOperations, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.jointOperations);
+  });
+
+  app.get(appEndpoints.status.planetEvents, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.planetEvents);
+  });
+
+  app.get(appEndpoints.status.planetActiveEffects, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.planetActiveEffects);
+  });
+
+  app.get(appEndpoints.status.activeElectionPolicyEffects, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.activeElectionPolicyEffects);
+  });
+
+  app.get(appEndpoints.status.globalEvents, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    res.json(rawStatusData.globalEvents);
   });
 
   // Start the server
