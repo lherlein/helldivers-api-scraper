@@ -2,6 +2,16 @@
 
 This is a for-fun project with the ultimate goal of a simple web app that scrapes the helldivers REST APIs. In the short term, I'm hoping to have a simple node script that hits the endpoints and parses them.
 
+## Goals/Features
+
+This API provides/will provide certain features and cover different use cases:
+
+- Open Source
+- Per Planet info and endpoints [TODO]
+- Updates + Orders recognition [TODO]
+- Cache data from the Helldivers API to limit load
+- Data collection and tracking of campaigns/wars over time [TODO]
+
 ## Running the server
 
 Webpack build does not work as of now.
