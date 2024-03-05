@@ -14,18 +14,23 @@ This API provides/will provide certain features and cover different use cases:
 
 ## Running the server
 
-Webpack build does not work as of now.
+Typescript is required to run the server. (BROKEN)
 
-To run the server, do:
-
-```
-node src/index.js
-```
-
-Or, to capture logs:
+To run the server, you must first build the code:
 
 ```
-node src/index.js > serverlogs.txt
+tsc
+```
+
+Then, run the built code:
+```
+node dist/index.js
+```
+
+Or, to capture logs in a file: 
+
+```
+node dist/index.js > serverlogs.txt
 ```
 
 ## Endpoints

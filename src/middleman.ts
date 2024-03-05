@@ -1,25 +1,19 @@
-import fetch, { Response } from "node-fetch";
+import axios, { AxiosResponse } from "axios";
 import { MiddlemanGetResponse, RawInfo, RawStatus } from "./types";
 
 export async function hdGet(url: string): Promise<MiddlemanGetResponse> {
-    // request options
-    const options = {
-        method: "GET",
-    };
-    
     //console.log(`attempting to fetch at ${url}`);
     try {
         // fetch data
-        let res: Response = await fetch(url, options);
-        let data = await res.json() as RawInfo | RawStatus;
+        let res: AxiosResponse = await axios.get(url);
+        //console.log(res.data);
         
         // craft response object
         let obj: MiddlemanGetResponse = {
             "timestamp": new Date().toISOString(),
-            "status": res.status,
-            "data": data
+            "status": res.status as number,
+            "data": res.data as RawInfo | RawStatus
         };
-        
         
         return obj;
     } catch (error) {
