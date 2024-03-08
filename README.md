@@ -7,10 +7,14 @@ This is a for-fun project with the ultimate goal of a simple web app that scrape
 This API provides/will provide certain features and cover different use cases:
 
 - Open Source
-- Per Planet info and endpoints [TODO]
+- Per Planet info and endpoints
 - Updates + Orders recognition [TODO]
 - Cache data from the Helldivers API to limit load
 - Data collection and tracking of campaigns/wars over time [TODO]
+  - Custom node exporter that exposes war metrics
+  - prometheus scraping of the exporter
+  - custom grafana dashboards showing war status + change over time
+  - time series DB of all metrics
 
 ## Running the server
 
