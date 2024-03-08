@@ -46,3 +46,5 @@ Base URL: `localhost:13131`
 curl localhost:13131/rawinfo
 curl localhost:13131/rawstatus
 ```
+
+https://helldivers-2.fly.dev/api/swaggerui#/default/Helldivers2Web.Api.WarSeasonController.index
