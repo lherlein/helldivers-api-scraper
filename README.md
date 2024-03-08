@@ -35,16 +35,35 @@ node dist/index.js > serverlogs.txt
 
 ## Endpoints
 
-1. `/rawinfo` returns the entire info json, raw
-2. `/rawstatus` returns the entire status json, raw
+1. `/info` returns the entire info json, raw
+   1. warId: `/warId`
+   2. dates: `/dates`
+   3. minClientVersion: `/minimumClientVersion`
+   4. planetInfo: `/planetInfos`
+   5. homeWorlds: `/homeWorlds`
+2. `/status` returns the entire status json, raw
+   1. warId: `/status/warId`
+   1. time: `/status/time`
+   2. impactMultiplier: `/status/impactMultiplier`
+   3. planetStatus: `/status/planetStatus`
+   4. planetAttacks: `/status/planetAttacks`
+   5. campaigns: `/status/campaigns`
+   6. communityTargets: `/status/communityTargets`
+   7. jointOperations: `/status/jointOperations`
+   8. planetEvents: `/status/planetEvents`
+   9. planetActiveEffects: `${statusbase}/planetActiveEffects`
+   10. activeElectionPolicyEffects: `/status/activeElectionPolicyEffects`
+   11. globalEvents: `/status/globalEvents`
+3. `/planets` returns all of the planets with their names
+   1. individual planets: `/planets/:{planet}`
 
 Base URL: `localhost:13131`
 
 ## Example
 
 ```bash
-curl localhost:13131/rawinfo
-curl localhost:13131/rawstatus
+curl localhost:13131/info
+curl localhost:13131/status
 ```
 
 https://helldivers-2.fly.dev/api/swaggerui#/default/Helldivers2Web.Api.WarSeasonController.index
