@@ -134,7 +134,7 @@ function plotRect(coordinates, labels) {
     });
   
     // Save the canvas as an image
-    const outputPath = 'rect_coordinates_plot_with_labels.png';
+    const outputPath = 'misc/rect_coordinates_plot_with_labels.png';
     const buffer = canvas.toBuffer('image/png');
     fs.writeFileSync(outputPath, buffer);
   
