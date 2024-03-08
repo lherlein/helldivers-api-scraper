@@ -4,8 +4,10 @@ import {
   MiddlemanGetResponse, 
   RawInfo,
   RawStatus,
-  RequestData
+  RequestData,
+  PlanetStatusWithName
 } from "./types";
+import { index2name } from "./index2name";
 
 const baseUrl: string = apiInfo.base;
 
@@ -24,6 +26,7 @@ let rawStatusData: RawStatus;
 
 let infobase = '/info';
 let statusbase = '/status';
+let planetsbase = `/planets`
 
 const appEndpoints = {
   info: {
@@ -46,6 +49,9 @@ const appEndpoints = {
     planetActiveEffects: `${statusbase}/planetActiveEffects`,
     activeElectionPolicyEffects: `${statusbase}/activeElectionPolicyEffects`,
     globalEvents: `${statusbase}/globalEvents`
+  },
+  planet: {
+    specplanet: `${planetsbase}/:planet`
   }
 };
 
@@ -58,6 +64,14 @@ function server() {
     };
     console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
   });
+
+  /*
+  -------------------------------------------------------------------------------------------------
+
+                                        INFO ENDPOINTS
+
+  -------------------------------------------------------------------------------------------------
+  */
   
   app.get(infobase, async (req, res) => {
     // log request with req info and time
@@ -70,18 +84,6 @@ function server() {
     res.setHeader('Content-Type', 'application/json');
     // Return a JSON object
     res.json(rawInfoData);
-  });
-
-  app.get(statusbase, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    // Set proper content-type header for JSON
-    res.setHeader('Content-Type', 'application/json');
-    // Return a JSON object
-    res.json(rawStatusData);
   });
 
   app.get(appEndpoints.info.warId, async (req, res) => {
@@ -133,6 +135,26 @@ function server() {
     };
     console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
     res.json(rawInfoData.homeWorlds);
+  });
+
+  /*
+  -------------------------------------------------------------------------------------------------
+
+                                        STATUS ENDPOINTS
+
+  -------------------------------------------------------------------------------------------------
+  */
+
+  app.get(statusbase, async (req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    // Set proper content-type header for JSON
+    res.setHeader('Content-Type', 'application/json');
+    // Return a JSON object
+    res.json(rawStatusData);
   });
 
   app.get(appEndpoints.status.warId, async (req, res) => {
@@ -241,6 +263,65 @@ function server() {
     };
     console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
     res.json(rawStatusData.globalEvents);
+  });
+
+  /*
+  -------------------------------------------------------------------------------------------------
+
+                                        PLANETS ENDPOINTS
+
+  -------------------------------------------------------------------------------------------------
+  */
+
+  app.get(planetsbase, async(req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+
+    // craft planet response with names
+    let resArr = [];
+    for (let i=0; i < rawStatusData.planetStatus.length; i++) {
+      let obj = rawStatusData.planetStatus[i] as PlanetStatusWithName;
+      let index = obj.index;
+      let name = index2name.map[index].name;
+      obj.name = name;
+      resArr.push(obj);
+    };
+
+    res.json(resArr);
+  });
+
+  app.get(appEndpoints.planet.specplanet, async(req, res) => {
+    const reqData: RequestData = {
+      "timestamp": new Date().toISOString(),
+      "request": req
+    };
+    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+
+    const planetName = req.params.planet;
+
+    // craft planet response with names
+    let found = false;
+    let obj;
+    let count = 0;
+    while (!found) {  
+      let name = index2name.map[count].name;
+      if (planetName == name) {
+        obj = rawStatusData.planetStatus[count] as PlanetStatusWithName;
+        obj.name = name;
+        found = true;
+      } else if (count == rawStatusData.planetStatus.length && planetName != name) {
+        obj = {
+          "status": 404,
+          "data": "Planet Not found"
+        }
+        found = true;
+      }
+      count++;
+    };
+    res.json(obj);
   });
 
   // Start the server

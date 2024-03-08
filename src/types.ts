@@ -1,3 +1,12 @@
+export type Index2Name = {
+    map: IndexName[]
+};
+
+type IndexName = {
+    index: number,
+    name: string
+}
+
 export type RequestData = {
     timestamp: string,
     request: any
@@ -43,6 +52,15 @@ export type PlanetStatus = {
     health: number,
     regenPerSecond: number,
     players: number
+};
+
+export type PlanetStatusWithName = {
+    index: number,
+    owner: number,
+    health: number,
+    regenPerSecond: number,
+    players: number,
+    name: string
 };
 
 export type PlanetAttack = {
