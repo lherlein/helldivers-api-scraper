@@ -16,6 +16,16 @@ This API provides/will provide certain features and cover different use cases:
   - custom grafana dashboards showing war status + change over time
   - time series DB of all metrics
 
+## Roadmap
+
+- Endpoint testing using Jest []
+- github actions to test new pushes []
+- host API on AWS []
+- move to open source []
+- openapi/swagger docs []
+- node exporter for prometheus to scrape war metrics []
+- storage of data in TSDB []
+
 ## Running the server
 
 Typescript is required to run the server.
