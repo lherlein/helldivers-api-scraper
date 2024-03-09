@@ -38,13 +38,13 @@ tsc
 
 Then, run the built code:
 ```
-node dist/index.js
+node dist/app.js
 ```
 
 Or, to capture logs in a file: 
 
 ```
-node dist/index.js > serverlogs.txt
+node dist/app.js > serverlogs.txt
 ```
 
 ## Endpoints

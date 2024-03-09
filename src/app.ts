@@ -1,12 +1,12 @@
-import { hdGet } from "./middleman";
-import { apiInfo } from "./hdapi";
+import { hdGet } from "./lib/middleman";
+import { apiInfo } from "./lib/misc/hdapi";
 import {
   RawInfo,
   RawStatus,
   PlanetStatusWithName,
   ResponseStandard
 } from "./types";
-import { index2name } from "./index2name";
+import { index2name } from "./lib/misc/index2name";
 
 const baseUrl: string = apiInfo.base;
 
@@ -352,11 +352,6 @@ function server() {
     let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
     res.json(resPackage); // return response
   });
-
-  // Start the server
-  app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
 }
 
 function craftSuccessfulResponseObj(data: any, code: number) {
@@ -369,29 +364,29 @@ function craftSuccessfulResponseObj(data: any, code: number) {
   return resPackage;
 }
 
-async function grabData() {  
+async function grabDataOnce() {
   let rawInfo = await hdGet(infoUrl);
   rawInfoData = rawInfo.data as RawInfo;
-  console.log(`Grabbed first set of info data at ${rawInfo.timestamp}`);
+  console.log(`Grabbed info data at ${rawInfo.timestamp}`);
   let rawStatus = await hdGet(statusUrl);
   rawStatusData = rawStatus.data as RawStatus;
-  console.log(`Grabbed first set of status data at ${rawStatus.timestamp}`);
-
-  // make middleman request every checkInterval minutes to limit requests to helldivers API
-  let checkInterval = 10; // in minutes
-  setInterval(async () => {
-    let rawInfo = await hdGet(infoUrl);
-    rawInfoData = rawInfo.data as RawInfo;
-    console.log(`Grabbed new info data at ${rawInfo.timestamp}`);
-    let rawStatus = await hdGet(statusUrl);
-    rawStatusData = rawStatus.data as RawStatus;
-    console.log(`Grabbed new status data at ${rawStatus.timestamp}`);
-  }, checkInterval*60*1000);
+  console.log(`Grabbed status data at ${rawStatus.timestamp}`);
 }
 
-async function start() {
-  await grabData();
+async function main() {
+  await grabDataOnce();
   server();
+  const cacheTime = 10; // in minutes
+  setInterval(async () => {
+    await grabDataOnce();
+    server();
+  }, cacheTime*60*1000);
+  // Start the server
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
 }
 
-start();
+main();
+
+export { app, appEndpoints };

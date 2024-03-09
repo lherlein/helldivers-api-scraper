@@ -1,4 +1,4 @@
-import { Index2Name } from "./types"
+import { Index2Name } from "../../types"
 
 export const index2name: Index2Name = {
   "map": [

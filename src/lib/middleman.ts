@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { MiddlemanGetResponse, RawInfo, RawStatus } from "./types";
+import { MiddlemanGetResponse, RawInfo, RawStatus } from "../types";
 
 export async function hdGet(url: string): Promise<MiddlemanGetResponse> {
     //console.log(`attempting to fetch at ${url}`);
