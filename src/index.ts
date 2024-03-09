@@ -1,10 +1,8 @@
 import { hdGet } from "./middleman";
 import { apiInfo } from "./hdapi";
 import {
-  MiddlemanGetResponse, 
   RawInfo,
   RawStatus,
-  RequestData,
   PlanetStatusWithName,
   ResponseStandard
 } from "./types";
