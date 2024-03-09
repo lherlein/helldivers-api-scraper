@@ -26,7 +26,7 @@ This API provides/will provide certain features and cover different use cases:
 - node exporter for prometheus to scrape war metrics []
 - storage of data in TSDB []
 
-## Running the server
+## Running the server locally
 
 Typescript is required to run the server.
 
