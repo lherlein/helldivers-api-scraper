@@ -56,16 +56,6 @@ const appEndpoints = {
   }
 };
 
-function craftSuccessfulResponseObj(data: any, code: number) {
-  const resPackage: ResponseStandard = {
-    success: true,
-    message: "Successful Response",
-    status: code,
-    data
-  };
-  return resPackage;
-}
-
 function server() {  
   // Define a basic endpoints
   app.get('/', async (req, res) => {
@@ -87,67 +77,73 @@ function server() {
   */
   
   app.get(infobase, async (req, res) => {
-    // log request with req info and time
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    // Set proper content-type header for JSON
-    res.setHeader('Content-Type', 'application/json');
-    // Return a JSON object
-    res.json(rawInfoData);
+    const resData = rawInfoData;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.info.warId, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawInfoData.warId);
+    const resData = rawInfoData.warId;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.info.dates, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    
     let resJson = {
       startDate: rawInfoData.startDate,
       endDate: rawInfoData.endDate
     }
-
-    res.json(resJson);
+    const resData = resJson;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.info.minimumClientVersion, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawInfoData.minimumClientVersion);
+    const resData = rawInfoData.minimumClientVersion;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.info.planetInfos, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawInfoData.planetInfos);
+    const resData = rawInfoData.planetInfos;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.info.homeWorlds, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawInfoData.homeWorlds);
+    const resData = rawInfoData.homeWorlds;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   /*
@@ -159,123 +155,146 @@ function server() {
   */
 
   app.get(statusbase, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    // Set proper content-type header for JSON
-    res.setHeader('Content-Type', 'application/json');
-    // Return a JSON object
-    res.json(rawStatusData);
+    const resData = rawStatusData;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.warId, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.warId);
+    const resData = rawStatusData.warId;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.time, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.time);
+    const resData = rawStatusData.time;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.impactMultiplier, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.impactMultiplier);
+    const resData = rawStatusData.impactMultiplier;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.planetStatus, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.planetStatus);
+    const resData = rawStatusData.planetStatus;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.planetAttacks, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.planetAttacks);
+    const resData = rawStatusData.planetAttacks;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.campaigns, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.campaigns);
+    const resData = rawStatusData.campaigns;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.communityTargets, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.communityTargets);
+    const resData = rawStatusData.communityTargets;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.jointOperations, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.jointOperations);
+    const resData = rawStatusData.jointOperations;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.planetEvents, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.planetEvents);
+    const resData = rawStatusData.planetEvents;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.planetActiveEffects, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.planetActiveEffects);
+    const resData = rawStatusData.planetActiveEffects;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.activeElectionPolicyEffects, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.activeElectionPolicyEffects);
+    const resData = rawStatusData.activeElectionPolicyEffects;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.status.globalEvents, async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-    res.json(rawStatusData.globalEvents);
+    const resData = rawStatusData.globalEvents;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   /*
@@ -287,13 +306,7 @@ function server() {
   */
 
   app.get(planetsbase, async(req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-
-    // craft planet response with names
+    // craft planet response with name
     let resArr = [];
     for (let i=0; i < rawStatusData.planetStatus.length; i++) {
       let obj = rawStatusData.planetStatus[i] as PlanetStatusWithName;
@@ -302,20 +315,19 @@ function server() {
       obj.name = name;
       resArr.push(obj);
     };
-
-    res.json(resArr);
+    const resData = resArr;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   app.get(appEndpoints.planet.specplanet, async(req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
-
-    const planetName = req.params.planet;
-
     // craft planet response with names
+    const planetName = req.params.planet;
     let found = false;
     let obj;
     let count = 0;
@@ -327,20 +339,36 @@ function server() {
         found = true;
       } else if (count == rawStatusData.planetStatus.length && planetName != name) {
         obj = {
-          "status": 404,
           "data": "Planet Not found"
         }
         found = true;
       }
       count++;
     };
-    res.json(obj);
+    const resData = obj;
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(resData, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   // Start the server
   app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
   });
+}
+
+function craftSuccessfulResponseObj(data: any, code: number) {
+  const resPackage: ResponseStandard = {
+    success: true,
+    message: "Successful Response",
+    status: code,
+    data
+  };
+  return resPackage;
 }
 
 async function grabData() {  
