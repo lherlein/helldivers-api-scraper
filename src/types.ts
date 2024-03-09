@@ -1,3 +1,10 @@
+export type ResponseStandard = {
+    success: boolean,
+    message: string,
+    status: number,
+    data: any
+}
+
 export type Index2Name = {
     map: IndexName[]
 };

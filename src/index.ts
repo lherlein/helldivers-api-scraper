@@ -5,7 +5,8 @@ import {
   RawInfo,
   RawStatus,
   RequestData,
-  PlanetStatusWithName
+  PlanetStatusWithName,
+  ResponseStandard
 } from "./types";
 import { index2name } from "./index2name";
 
@@ -55,14 +56,26 @@ const appEndpoints = {
   }
 };
 
+function craftSuccessfulResponseObj(data: any, code: number) {
+  const resPackage: ResponseStandard = {
+    success: true,
+    message: "Successful Response",
+    status: code,
+    data
+  };
+  return resPackage;
+}
+
 function server() {  
   // Define a basic endpoints
   app.get('/', async (req, res) => {
-    const reqData: RequestData = {
-      "timestamp": new Date().toISOString(),
-      "request": req
-    };
-    console.log(`${reqData.timestamp}: ${reqData.request.ip} requested ${reqData.request.originalUrl}`);
+    console.log(`${new Date().toString()}: ${req.socket.remoteAddress} made ${req.method} to ${req.originalUrl}`);
+    // set headers - standard across endpoints
+    res.set({
+      'Content-Type': 'application/json'
+    });
+    let resPackage = craftSuccessfulResponseObj(appEndpoints, 200); // craft response package
+    res.json(resPackage); // return response
   });
 
   /*
